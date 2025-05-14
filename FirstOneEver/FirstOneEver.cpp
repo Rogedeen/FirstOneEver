@@ -16,6 +16,9 @@ int main()
 		DrawText("HAZIR OL", 150, 400, 20,WHITE);
 		EndDrawing();
 	}
+
+	// Close window and OpenGL context
+	
 	CloseWindow();
 	return 0;	
 
