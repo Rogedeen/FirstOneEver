@@ -18,6 +18,7 @@ int main()
 	}
 
 	// Close window and OpenGL context
+	//denemeutkututku
 	
 	CloseWindow();
 	
