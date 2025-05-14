@@ -1,10 +1,22 @@
 #include "raylib.h"
 #include <iostream>
+#include <stdlib.h>
 
 int main()
 {
-
-    std::cout << "Hello World!\n";
-	std::cout << "This is my first C++ program using raylib!\n";
-	//deneme3
+	
+	InitWindow(800, 600, "Facebook");
+	SetTargetFPS(60);
+	
+	while (!WindowShouldClose())
+	{
+		
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+		DrawText("by yunus ahmet", 350, 280, 20, LIGHTGRAY);
+		EndDrawing();
+	}
+	
+	CloseWindow();
+	
 }
