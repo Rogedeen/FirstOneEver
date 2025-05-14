@@ -1,2 +1,2 @@
 ﻿  FirstOneEver.cpp
-  FirstOneEver.vcxproj -> C:\Users\iyunu\source\repos\FirstOneEver\x64\Debug\FirstOneEver.exe
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(31,13): error C3861: 'GetFrameCount': identifier not found
