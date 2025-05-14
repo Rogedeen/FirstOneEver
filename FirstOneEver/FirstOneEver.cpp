@@ -64,7 +64,7 @@ int main() {
 
     Vector2 playerPosition = { screenWidth / 2 - 25, screenHeight - 100 };
 
-    const float playerSpeed = 5.0f;
+    float playerSpeed = 5.0f;
 
     std::vector<Bullet> bullets;
 
@@ -74,9 +74,9 @@ int main() {
 
     int frameCounter = 0;
 
-    const float bulletSpeed = 7.0f;
+    float bulletSpeed = 7.0f;
 
-    const float enemySpeed = 2.0f;
+    float enemySpeed = 2.0f;
 
     bool fastShooting = false;
 
