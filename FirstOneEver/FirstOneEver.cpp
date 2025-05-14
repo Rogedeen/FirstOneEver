@@ -136,7 +136,7 @@ int main() {
 
                     if (enemies[j].health <= 0) {
 
-                        if (rand() % 100 < 30) {
+                        if (rand() % 100 < 15) {
 
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, rand() % 3 });
 
