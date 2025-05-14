@@ -16,6 +16,8 @@ int main()
 		DrawText("by yunus ahmet", 350, 280, 20, LIGHTGRAY);
 		EndDrawing();
 	}
+
+	// Close window and OpenGL context
 	
 	CloseWindow();
 	
