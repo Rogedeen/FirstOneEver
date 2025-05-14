@@ -1,45 +1,28 @@
 #include <iostream>
-
 #include <string>
-
 #include <cstdlib>
-
 #include <ctime>
-
 #include <vector>
-
 #include <algorithm>
-
 #include "raylib.h"
 
 struct Bullet {
-
     Vector2 position;
-
     float speed;
-
 };
 
 struct Enemy {
-
     Vector2 position;
-
     float speed;
-
     int health;
-
 };
 
 struct PowerUp {
-
     Vector2 position;
-
     int type;
-
 };
 
 bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
-
     return !(aPos.x > bPos.x + bSize.x ||
 
         aPos.x + aSize.x < bPos.x ||
@@ -53,9 +36,7 @@ bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
 int main() {
 
     const int screenWidth = 450;
-
     const int screenHeight = 800;
-
     InitWindow(screenWidth, screenHeight, "prototip");
 
     SetTargetFPS(60);
@@ -67,19 +48,13 @@ int main() {
     float playerSpeed = 5.0f;
 
     std::vector<Bullet> bullets;
-
     std::vector<Enemy> enemies;
-
     std::vector<PowerUp> powerUps; // Güçlendirme listesi eklendi.
 
     int frameCounter = 0;
-
     float bulletSpeed = 7.0f;
-
     float enemySpeed = 2.0f;
-
     bool fastShooting = false;
-
     int fastShootingTimer = 0;
 
     while (!WindowShouldClose()) {
@@ -115,7 +90,6 @@ int main() {
             int enemyLevel = rand() % 3 + 1;
 
             enemies.push_back({ {enemyX, -40}, enemySpeed, enemyLevel });
-
         }
 
         for (auto& enemy : enemies) {
@@ -183,7 +157,6 @@ int main() {
             if (fastShootingTimer > 300) {
 
                 fastShooting = false;
-
                 fastShootingTimer = 0;
 
             }
@@ -199,9 +172,7 @@ int main() {
             [screenHeight](PowerUp p) { return p.position.y > screenHeight; }), powerUps.end());
 
         BeginDrawing();
-
         ClearBackground(BLACK);
-
         DrawRectangleV(playerPosition, { 50, 50 }, BLUE);
 
         for (const auto& bullet : bullets) {
@@ -213,7 +184,6 @@ int main() {
         for (const auto& enemy : enemies) {
 
             Color enemyColor = (enemy.health == 3) ? RED : (enemy.health == 2) ? ORANGE : GREEN;
-
             DrawRectangleV(enemy.position, { 40, 40 }, enemyColor);
 
         }
@@ -221,17 +191,11 @@ int main() {
         for (const auto& powerUp : powerUps) {
 
             Color powerColor = (powerUp.type == 0) ? PURPLE : (powerUp.type == 1) ? BLUE : SKYBLUE;
-
             DrawRectangleV(powerUp.position, { 30, 30 }, powerColor);
 
         }
-
         EndDrawing();
-
     }
-
     CloseWindow();
-
     return 0;
-
 }
