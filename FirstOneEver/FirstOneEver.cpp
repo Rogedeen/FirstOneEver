@@ -28,6 +28,7 @@ int main()
 
 		EndDrawing();
 		//push 
+		//aananananananananananananan
 	}
 
 	CloseWindow();
