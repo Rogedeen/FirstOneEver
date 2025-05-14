@@ -1,4 +1,2 @@
 ﻿  FirstOneEver.cpp
-C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(25,20): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(26,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   FirstOneEver.vcxproj -> C:\Users\iyunu\source\repos\FirstOneEver\x64\Debug\FirstOneEver.exe
