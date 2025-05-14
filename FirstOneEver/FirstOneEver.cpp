@@ -4,21 +4,31 @@
 
 int main()
 {
-	
-	InitWindow(450, 800, "prototip");
+	const int screenWidth = 450;
+	const int screenHeight = 800;
+
+	InitWindow(screenWidth, screenHeight, "prototip");
 	SetTargetFPS(60);
 	
+	float backgroundY = 0;
+	const float scrollSpeed = 2.0f;
+
+
 	while (!WindowShouldClose())
 	{
+		backgroundY += scrollSpeed;
+		if (backgroundY >= screenHeight) backgroundY = 0;
 		
 		BeginDrawing();
 		ClearBackground(BLACK);
-		DrawText("HAZIR OL", 150, 400, 20,WHITE);
+
+		DrawRectangle(0, backgroundY, screenWidth, screenHeight, DARKGRAY);
+		DrawRectangle(0, backgroundY - screenHeight, screenWidth, screenHeight, DARKGRAY);
+
+
 		EndDrawing();
 	}
 
-	// Close window and OpenGL context
-	
 	CloseWindow();
 	return 0;	
 
