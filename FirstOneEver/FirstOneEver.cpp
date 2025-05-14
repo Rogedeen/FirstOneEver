@@ -14,6 +14,7 @@ struct Bullet {
 struct Enemy {
     Vector2 position;
     float speed;
+    int health; // Düþman seviyesini belirleyen can deðeri eklendi.
 };
 
 bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
@@ -66,7 +67,8 @@ int main() {
         // Düþman oluþturma (her 60 karede bir)
         if (frameCounter % 60 == 0) {
             float enemyX = rand() % (screenWidth - 40);
-            enemies.push_back({ {enemyX, -40}, enemySpeed });
+            int enemyLevel = rand() % 3 + 1;  // Düþmana rastgele 1, 2 veya 3 seviyesinde can verildi.
+            enemies.push_back({ {enemyX, -40}, enemySpeed, enemyLevel });
         }
 
         // Düþmanlarý hareket ettir
@@ -79,7 +81,13 @@ int main() {
             for (int j = enemies.size() - 1; j >= 0; j--) {
                 if (CheckCollision(bullets[i].position, { 10, 20 }, enemies[j].position, { 40, 40 })) {
                     bullets.erase(bullets.begin() + i);
-                    enemies.erase(enemies.begin() + j);
+                    enemies[j].health--; // Düþmanýn canýný bir azalt.
+
+                    // Düþmanýn caný sýfýra indiðinde yok et.
+                    if (enemies[j].health <= 0) {
+                        enemies.erase(enemies.begin() + j);
+                    }
+
                     break;
                 }
             }
@@ -103,7 +111,9 @@ int main() {
 
         // Düþmanlar
         for (const auto& enemy : enemies) {
-            DrawRectangleV(enemy.position, { 40, 40 }, RED);
+            Color enemyColor = (enemy.health == 3) ? RED : (enemy.health == 2) ? ORANGE : GREEN;
+            // Düþman seviyesine göre renk belirlendi: 3 = Kýrmýzý, 2 = Turuncu, 1 = Yeþil
+            DrawRectangleV(enemy.position, { 40, 40 }, enemyColor);
         }
 
         EndDrawing();
