@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <cstdlib>
 #include <ctime>
 #include <vector>
@@ -19,7 +18,7 @@ struct Enemy {
 
 struct PowerUp {
     Vector2 position;
-    int type; 
+    int type;
 };
 
 bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
@@ -29,12 +28,21 @@ bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
         aPos.y + aSize.y < bPos.y);
 }
 
-int main() {
+void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver) {
+    playerPosition = { 450 / 2 - 25, 800 - 100 };
+    bullets.clear();
+    enemies.clear();
+    powerUps.clear();
+    playerHealth = 3;
+    gameOver = false;
+}
 
+
+int main() {
     const int screenWidth = 450;
     const int screenHeight = 800;
-    InitWindow(screenWidth, screenHeight, "prototip");
 
+    InitWindow(screenWidth, screenHeight, "prototip");
     SetTargetFPS(60);
     srand(time(NULL));
 
@@ -60,9 +68,31 @@ int main() {
         if (gameOver) {
             BeginDrawing();
             ClearBackground(BLACK);
-            DrawText("GAME OVER", screenWidth / 2 - MeasureText("GAME OVER", 40) / 2, screenHeight / 2 - 20, 40, RED);
+            DrawText("GAME OVER", screenWidth / 2 - MeasureText("GAME OVER", 40) / 2, screenHeight / 2 - 100, 40, RED);
+
+            DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 - 30, 120, 40, DARKGRAY);
+            DrawText("TRY AGAIN", screenWidth / 2 - MeasureText("TRY AGAIN", 20) / 2, screenHeight / 2 - 20, 20, WHITE);
+
+            DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 + 30, 120, 40, DARKGRAY);
+            DrawText("QUIT", screenWidth / 2 - MeasureText("QUIT", 20) / 2, screenHeight / 2 + 40, 20, WHITE);
+
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                Vector2 mousePos = GetMousePosition();
+
+                if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
+                    mousePos.y > screenHeight / 2 - 30 && mousePos.y < screenHeight / 2 + 10) {
+                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver);
+                }
+
+                if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
+                    mousePos.y > screenHeight / 2 + 30 && mousePos.y < screenHeight / 2 + 70) {
+                    CloseWindow();
+                    return 0;
+                }
+            }
+
             EndDrawing();
-            continue;
+			continue;
         }
 
         if (IsKeyDown(KEY_LEFT) && playerPosition.x > 0) playerPosition.x -= playerSpeed;
@@ -95,15 +125,16 @@ int main() {
                 if (CheckCollision(bullets[i].position, { 10, 20 }, enemies[j].position, { 40, 40 })) {
                     bullets.erase(bullets.begin() + i);
                     enemies[j].health--;
+
                     if (enemies[j].health <= 0) {
-                        
                         if (rand() % 100 < 15) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, rand() % 3 });
                         }
-                       
+
                         if (rand() % 100 < 2) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 3 });
                         }
+
                         enemies.erase(enemies.begin() + j);
                     }
                     break;
@@ -117,20 +148,11 @@ int main() {
 
         for (int i = powerUps.size() - 1; i >= 0; i--) {
             if (CheckCollision(playerPosition, { 50, 50 }, powerUps[i].position, { 30, 30 })) {
-                if (powerUps[i].type == 0) {
-                    fastShooting = true;
-                }
-                else if (powerUps[i].type == 1) {
-                    playerSpeed += 2.0f;
-                }
-                else if (powerUps[i].type == 2) {
-                    enemySpeed -= 0.5f;
-                }
-                else if (powerUps[i].type == 3) {
-                    if (playerHealth < 3) {
-                        playerHealth++;
-                    }
-                }
+                if (powerUps[i].type == 0) fastShooting = true;
+                else if (powerUps[i].type == 1) playerSpeed += 2.0f;
+                else if (powerUps[i].type == 2) enemySpeed -= 0.5f;
+                else if (powerUps[i].type == 3 && playerHealth < 3) playerHealth++;
+
                 powerUps.erase(powerUps.begin() + i);
             }
         }
@@ -155,6 +177,18 @@ int main() {
             }
         }
 
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            if (enemies[i].position.y > screenHeight) {
+                playerHealth--;  
+                enemies.erase(enemies.begin() + i);
+
+                if (playerHealth <= 0) {
+                    gameOver = true;
+                    break;
+                }
+            }
+        }
+
         enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
             [screenHeight](Enemy e) { return e.position.y > screenHeight; }), enemies.end());
 
@@ -163,6 +197,7 @@ int main() {
 
         BeginDrawing();
         ClearBackground(BLACK);
+
         DrawRectangleV(playerPosition, { 50, 50 }, BLUE);
 
         for (const auto& bullet : bullets) {
