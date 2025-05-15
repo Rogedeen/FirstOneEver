@@ -19,7 +19,7 @@ struct Enemy {
 
 struct PowerUp {
     Vector2 position;
-    int type;
+    int type; 
 };
 
 bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
@@ -51,12 +51,11 @@ int main() {
     bool fastShooting = false;
     int fastShootingTimer = 0;
 
-    int playerHealth = 3;       
-    bool gameOver = false;      
+    int playerHealth = 3;
+    bool gameOver = false;
 
     while (!WindowShouldClose()) {
         frameCounter++;
-
 
         if (gameOver) {
             BeginDrawing();
@@ -91,15 +90,19 @@ int main() {
             enemy.position.y += enemy.speed;
         }
 
-
         for (int i = bullets.size() - 1; i >= 0; i--) {
             for (int j = enemies.size() - 1; j >= 0; j--) {
                 if (CheckCollision(bullets[i].position, { 10, 20 }, enemies[j].position, { 40, 40 })) {
                     bullets.erase(bullets.begin() + i);
                     enemies[j].health--;
                     if (enemies[j].health <= 0) {
+                        
                         if (rand() % 100 < 15) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, rand() % 3 });
+                        }
+                       
+                        if (rand() % 100 < 2) {
+                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 3 });
                         }
                         enemies.erase(enemies.begin() + j);
                     }
@@ -114,9 +117,20 @@ int main() {
 
         for (int i = powerUps.size() - 1; i >= 0; i--) {
             if (CheckCollision(playerPosition, { 50, 50 }, powerUps[i].position, { 30, 30 })) {
-                if (powerUps[i].type == 0) fastShooting = true;
-                else if (powerUps[i].type == 1) playerSpeed += 2.0f;
-                else if (powerUps[i].type == 2) enemySpeed -= 0.5f;
+                if (powerUps[i].type == 0) {
+                    fastShooting = true;
+                }
+                else if (powerUps[i].type == 1) {
+                    playerSpeed += 2.0f;
+                }
+                else if (powerUps[i].type == 2) {
+                    enemySpeed -= 0.5f;
+                }
+                else if (powerUps[i].type == 3) {
+                    if (playerHealth < 3) {
+                        playerHealth++;
+                    }
+                }
                 powerUps.erase(powerUps.begin() + i);
             }
         }
@@ -128,7 +142,6 @@ int main() {
                 fastShootingTimer = 0;
             }
         }
-
 
         for (int i = enemies.size() - 1; i >= 0; i--) {
             if (CheckCollision(playerPosition, { 50, 50 }, enemies[i].position, { 40, 40 })) {
@@ -148,7 +161,6 @@ int main() {
         powerUps.erase(std::remove_if(powerUps.begin(), powerUps.end(),
             [screenHeight](PowerUp p) { return p.position.y > screenHeight; }), powerUps.end());
 
-
         BeginDrawing();
         ClearBackground(BLACK);
         DrawRectangleV(playerPosition, { 50, 50 }, BLUE);
@@ -163,7 +175,11 @@ int main() {
         }
 
         for (const auto& powerUp : powerUps) {
-            Color powerColor = (powerUp.type == 0) ? PURPLE : (powerUp.type == 1) ? BLUE : SKYBLUE;
+            Color powerColor =
+                (powerUp.type == 0) ? PURPLE :
+                (powerUp.type == 1) ? BLUE :
+                (powerUp.type == 2) ? SKYBLUE :
+                (powerUp.type == 3) ? GREEN : WHITE;
             DrawRectangleV(powerUp.position, { 30, 30 }, powerColor);
         }
 
