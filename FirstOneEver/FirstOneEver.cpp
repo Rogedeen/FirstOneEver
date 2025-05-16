@@ -84,6 +84,8 @@ int main() {
     bool ultiActive = false;
     int ultiDurationTimer = 0;
     const int ultiDurationMax = 300;  
+    const float maxPlayerSpeed = 8.0f;  
+
 
 
     while (!WindowShouldClose()) {
@@ -240,9 +242,14 @@ int main() {
                 if (powerUps[i].type == 0) {
                     fastShooting = true;
                 }
+
                 else if (powerUps[i].type == 1) {
                     playerSpeed += 2.0f;
+                    if (playerSpeed > maxPlayerSpeed) {
+                        playerSpeed = maxPlayerSpeed;
+                    }
                 }
+
                 else if (powerUps[i].type == 2) {
                     if (!enemySpeedReduced) {
                         enemySpeed -= 0.5f;
