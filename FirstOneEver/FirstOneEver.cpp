@@ -29,7 +29,7 @@ bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
         aPos.y + aSize.y < bPos.y);
 }
 
-void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer, int& score, float& playerSpeed) {
+void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer, unsigned long int& score, float& playerSpeed) {
     playerPosition = { 450 / 2 - 25, 800 - 100 };
     bullets.clear();
     playerSpeed = 5.0f;
@@ -76,7 +76,7 @@ int main() {
     int playerHealth = 3;
     bool gameOver = false;
 
-    int score = 0;
+    unsigned long int score = 0;
 
     int scoreMultiplier = 1;
     float gameTime = 0.0f;
@@ -91,6 +91,7 @@ int main() {
     const int ultiDurationMax = 300;
 
 	const float maxPlayerSpeed = 8.0f;
+    const int maxPlayerHealth = 5;
 
     while (!WindowShouldClose()) {
         frameCounter++;
@@ -284,11 +285,10 @@ int main() {
                     }
                     enemySpeedTimer = 0;
                 }
-                else if (powerUps[i].type == 3 && playerHealth < 3) {
+                else if (powerUps[i].type == 3 && playerHealth < maxPlayerHealth) {
                     playerHealth++;
                 }
                 if (powerUps[i].type == 4) {
-                    playerHealth++;
                     cloneActive = true;
                     clonePosition = playerPosition;
                     cloneDuration = 0;
