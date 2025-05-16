@@ -1,11 +1,11 @@
 ﻿  FirstOneEver.cpp
 C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(52,15): warning C4244: 'bağımsız değişken': 'time_t' - 'unsigned int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(196,26): warning C4244: 'başlatılıyor': 'int' - 'float' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(225,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(226,24): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(269,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(318,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(330,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(233,26): warning C4244: 'başlatılıyor': 'int' - 'float' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(262,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(263,24): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(306,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(355,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(367,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
   FirstOneEver.vcxproj -> C:\Users\Utku\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

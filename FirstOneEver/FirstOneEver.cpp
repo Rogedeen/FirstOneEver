@@ -93,6 +93,8 @@ int main() {
 	const float maxPlayerSpeed = 8.0f;
     const int maxPlayerHealth = 5;
 
+    bool paused = false;
+
     while (!WindowShouldClose()) {
         frameCounter++;
         float deltaTime = GetFrameTime();
@@ -112,6 +114,38 @@ int main() {
 
         if (static_cast<int>(gameTime) % 10 == 0 && static_cast<int>(gameTime) != 0 && frameCounter % 60 == 0) {
             scoreMultiplier *= 2;
+        }
+        if (paused) {
+            BeginDrawing();
+            ClearBackground(DARKGRAY);
+            DrawText("PAUSED", screenWidth / 2 - MeasureText("PAUSED", 40) / 2, screenHeight / 2 - 100, 40, WHITE);
+
+            DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 - 30, 120, 40, DARKBLUE);
+            DrawText("RESTART", screenWidth / 2 - MeasureText("RESTART", 20) / 2, screenHeight / 2 - 20, 20, WHITE);
+
+            DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 + 30, 120, 40, RED);
+            DrawText("EXIT", screenWidth / 2 - MeasureText("EXIT", 20) / 2, screenHeight / 2 + 40, 20, WHITE);
+
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                Vector2 mousePos = GetMousePosition();
+
+                // RESTART
+                if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
+                    mousePos.y > screenHeight / 2 - 30 && mousePos.y < screenHeight / 2 + 10) {
+                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score, playerSpeed);
+                    paused = false;
+                }
+
+                // EXIT
+                if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
+                    mousePos.y > screenHeight / 2 + 30 && mousePos.y < screenHeight / 2 + 70) {
+                    CloseWindow();
+                    return 0;
+                }
+            }
+
+            EndDrawing();
+            continue; // Oyun mantýðýný atla
         }
 
         if (gameOver) {
@@ -163,6 +197,9 @@ int main() {
             ultiCharge = 0.0f;
             fastShooting = true;
             ultiDurationTimer = 0;
+        }
+        if (IsKeyPressed(KEY_P)) {
+            paused = !paused;
         }
 
         if (ultiActive) {
