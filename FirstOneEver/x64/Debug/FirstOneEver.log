@@ -1,11 +1,1 @@
-﻿  FirstOneEver.cpp
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(52,15): warning C4244: 'bağımsız değişken': 'time_t' - 'unsigned int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(176,26): warning C4244: 'başlatılıyor': 'int' - 'float' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(205,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(206,24): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(240,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(285,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(297,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-  FirstOneEver.vcxproj -> C:\Users\Utku\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.
+﻿  FirstOneEver.vcxproj -> C:\Users\iyunu\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe

@@ -14,7 +14,7 @@ struct Enemy {
     Vector2 position;
     float speed;
     int health;
-    int score; 
+    int score;
 };
 
 struct PowerUp {
@@ -32,7 +32,7 @@ bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
 void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer, int& score, float& playerSpeed) {
     playerPosition = { 450 / 2 - 25, 800 - 100 };
     bullets.clear();
-	playerSpeed = 5.0f; 
+    playerSpeed = 5.0f;
     enemies.clear();
     powerUps.clear();
     playerHealth = 3;
@@ -52,6 +52,11 @@ int main() {
     srand(time(NULL));
 
     Vector2 playerPosition = { screenWidth / 2 - 25, screenHeight - 100 };
+    Vector2 clonePosition;
+    bool cloneActive = false;
+    int cloneDuration = 0;
+    const int cloneMaxDuration = 360;
+
     float playerSpeed = 5.0f;
 
     std::vector<Bullet> bullets;
@@ -76,17 +81,16 @@ int main() {
     int scoreMultiplier = 1;
     float gameTime = 0.0f;
 
-    float enemySpeedIncreaseTime = 0.0f; 
-    float enemySpawnIncreaseTime = 0.0f; 
+    float enemySpeedIncreaseTime = 0.0f;
+    float enemySpawnIncreaseTime = 0.0f;
 
-    float ultiCharge = 0.0f;          
-    const float ultiChargeRate = 0.025f; 
+    float ultiCharge = 0.0f;
+    const float ultiChargeRate = 0.025f;
     bool ultiActive = false;
     int ultiDurationTimer = 0;
-    const int ultiDurationMax = 300;  
-    const float maxPlayerSpeed = 8.0f;  
+    const int ultiDurationMax = 300;
 
-
+	const float maxPlayerSpeed = 8.0f;
 
     while (!WindowShouldClose()) {
         frameCounter++;
@@ -95,10 +99,10 @@ int main() {
         enemySpeedIncreaseTime += deltaTime;
         enemySpawnIncreaseTime += deltaTime;
 
-		if (enemySpeedIncreaseTime >= 10.0f) {
-			enemySpeed += 0.1f;
-			enemySpeedIncreaseTime = 0.0f;
-		}
+        if (enemySpeedIncreaseTime >= 10.0f) {
+            enemySpeed += 0.1f;
+            enemySpeedIncreaseTime = 0.0f;
+        }
 
         if (!ultiActive) {
             ultiCharge += ultiChargeRate * GetFrameTime();
@@ -106,7 +110,7 @@ int main() {
         }
 
         if (static_cast<int>(gameTime) % 10 == 0 && static_cast<int>(gameTime) != 0 && frameCounter % 60 == 0) {
-            scoreMultiplier*=2;
+            scoreMultiplier *= 2;
         }
 
         if (gameOver) {
@@ -142,10 +146,21 @@ int main() {
         if (IsKeyDown(KEY_LEFT) && playerPosition.x > 0) playerPosition.x -= playerSpeed;
         if (IsKeyDown(KEY_RIGHT) && playerPosition.x < screenWidth - 50) playerPosition.x += playerSpeed;
 
+        if (cloneActive) {
+            if (IsKeyDown(KEY_LEFT) && clonePosition.x < screenWidth - 50) clonePosition.x += playerSpeed;
+            if (IsKeyDown(KEY_RIGHT) && clonePosition.x > 0) clonePosition.x -= playerSpeed;
+        }
+        if (cloneActive) {
+            cloneDuration++;
+            if (cloneDuration >= cloneMaxDuration) {
+                cloneActive = false;
+                cloneDuration = 0;
+            }
+        }
         if (IsKeyPressed(KEY_SPACE) && ultiCharge >= 1.0f && !ultiActive) {
             ultiActive = true;
             ultiCharge = 0.0f;
-            fastShooting = true;  
+            fastShooting = true;
             ultiDurationTimer = 0;
         }
 
@@ -153,7 +168,7 @@ int main() {
             ultiDurationTimer++;
             if (ultiDurationTimer >= ultiDurationMax) {
                 ultiActive = false;
-                fastShooting = false; 
+                fastShooting = false;
                 ultiDurationTimer = 0;
             }
         }
@@ -163,6 +178,10 @@ int main() {
         int fps = GetFPS();
         if (fps > 0 && frameCounter % ((fastShooting ? fps / 8 : fps / 4)) == 0) {
             bullets.push_back({ {playerPosition.x + 20, playerPosition.y}, bulletSpeed });
+            if (cloneActive) {
+                bullets.push_back({ {clonePosition.x + 20, clonePosition.y}, bulletSpeed });
+            }
+
         }
 
         for (auto& bullet : bullets) {
@@ -177,18 +196,18 @@ int main() {
             int enemyLevel;
 
             if (gameTime >= 60.0f) {
-                
+
                 enemyLevel = rand() % 4 + 1;
             }
             else {
-                
+
                 enemyLevel = rand() % 3 + 1;
             }
 
             float enemySpawnSpeed = enemySpeed;
 
             if (enemyLevel == 4) {
-                enemySpawnSpeed = enemySpeed * 0.7f; 
+                enemySpawnSpeed = enemySpeed * 0.7f;
             }
 
             int enemyHealth = enemyLevel;
@@ -208,7 +227,7 @@ int main() {
                     bullets.erase(bullets.begin() + i);
 
                     if (ultiActive) {
-                        enemies[j].health -= 100;  
+                        enemies[j].health -= 100;
                     }
                     else {
                         enemies[j].health--;
@@ -218,9 +237,16 @@ int main() {
                         score += enemies[j].score * scoreMultiplier;
 
 
-                        if (rand() % 100 < 20) {
-                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, rand() % 3 });
+                        if (rand() % 100 < 25) {
+                            int randomType = rand() % 4; // 0-3
+                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, randomType });
                         }
+
+                        // Klon power-up'ý nadir düþsün (%5)
+                        if (rand() % 100 < 5 && !cloneActive) {
+                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 4 });
+                        }
+
 
                         if (rand() % 100 < 2) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 3 });
@@ -242,14 +268,12 @@ int main() {
                 if (powerUps[i].type == 0) {
                     fastShooting = true;
                 }
-
                 else if (powerUps[i].type == 1) {
                     playerSpeed += 2.0f;
                     if (playerSpeed > maxPlayerSpeed) {
                         playerSpeed = maxPlayerSpeed;
                     }
                 }
-
                 else if (powerUps[i].type == 2) {
                     if (!enemySpeedReduced) {
                         enemySpeed -= 0.5f;
@@ -259,6 +283,11 @@ int main() {
                 }
                 else if (powerUps[i].type == 3 && playerHealth < 3) {
                     playerHealth++;
+                }
+                else if (powerUps[i].type == 4 && !cloneActive) {
+                    cloneActive = true;
+                    clonePosition = playerPosition;
+                    cloneDuration = 0;
                 }
 
                 powerUps.erase(powerUps.begin() + i);
@@ -316,6 +345,12 @@ int main() {
         ClearBackground(BLACK);
 
         DrawRectangleV(playerPosition, { 50, 50 }, BLUE);
+        if (cloneActive) {
+            DrawRectangleV(clonePosition, { 50, 50 }, SKYBLUE); // Klon farklý renkte
+        }
+        for (const auto& bullet : bullets) {
+            DrawRectangleV(bullet.position, { 10, 20 }, WHITE);
+        }
 
         for (const auto& bullet : bullets) {
             DrawRectangleV(bullet.position, { 10, 20 }, YELLOW);
@@ -324,7 +359,7 @@ int main() {
         for (const auto& enemy : enemies) {
             Color enemyColor;
             if (enemy.health == 6) {
-                enemyColor = DARKPURPLE; 
+                enemyColor = DARKPURPLE;
             }
             else if (enemy.health == 5) {
                 enemyColor = PINK;
@@ -342,11 +377,11 @@ int main() {
             DrawRectangleV(enemy.position, { 40, 40 }, enemyColor);
         }
 
-        
+
         DrawRectangle(10, 40, 150, 20, DARKGRAY);
         DrawRectangle(10, 40, static_cast<int>(150 * ultiCharge), 20, GOLD);
         DrawText("ULTI", 170, 40, 20, WHITE);
- 
+
 
         for (const auto& powerUp : powerUps) {
             Color powerColor =
@@ -354,6 +389,7 @@ int main() {
                 (powerUp.type == 1) ? BLUE :
                 (powerUp.type == 2) ? BROWN :
                 (powerUp.type == 3) ? GREEN : WHITE;
+            (powerUp.type == 4) ? ORANGE : WHITE;
             DrawRectangleV(powerUp.position, { 30, 30 }, powerColor);
         }
 
