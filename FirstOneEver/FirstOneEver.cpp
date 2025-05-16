@@ -68,7 +68,7 @@ int main() {
     bool enemySpeedReduced = false;
     int enemySpeedTimer = 0;
 
-    int playerHealth = 3000;
+    int playerHealth = 3;
     bool gameOver = false;
 
     int score = 0;
@@ -76,8 +76,8 @@ int main() {
     int scoreMultiplier = 1;
     float gameTime = 0.0f;
 
-    float enemySpeedIncreaseTime = 0.0f; //burada deðiþiklik yaptým -y
-    float enemySpawnIncreaseTime = 0.0f; //
+    float enemySpeedIncreaseTime = 0.0f; 
+    float enemySpawnIncreaseTime = 0.0f; 
 
     while (!WindowShouldClose()) {
         frameCounter++;
@@ -142,9 +142,29 @@ int main() {
 
         if (frameCounter % 60 == 0) {
             float enemyX = rand() % (screenWidth - 40);
-            int enemyLevel = rand() % 3 + 1;
-            enemies.push_back({ {enemyX, -40}, enemySpeed, enemyLevel, enemyLevel * 10});
+            int enemyLevel;
+
+            if (gameTime >= 60.0f) {
+                
+                enemyLevel = rand() % 4 + 1;
+            }
+            else {
+                
+                enemyLevel = rand() % 3 + 1;
+            }
+
+            float enemySpawnSpeed = enemySpeed;
+
+            if (enemyLevel == 4) {
+                enemySpawnSpeed = enemySpeed * 0.7f; 
+            }
+
+            int enemyHealth = enemyLevel;
+            if (enemyLevel == 4) enemyHealth = 6; 
+
+            enemies.push_back({ {enemyX, -40}, enemySpawnSpeed, enemyHealth, enemyLevel * 10 });
         }
+
 
         for (auto& enemy : enemies) {
             enemy.position.y += enemy.speed;
@@ -259,7 +279,23 @@ int main() {
         }
 
         for (const auto& enemy : enemies) {
-            Color enemyColor = (enemy.health == 3) ? RED : (enemy.health == 2) ? ORANGE : GREEN;
+            Color enemyColor;
+            if (enemy.health == 6) {
+                enemyColor = DARKPURPLE; 
+            }
+            else if (enemy.health == 5) {
+                enemyColor = PINK;
+            }
+            else if (enemy.health == 3) {
+                enemyColor = RED;
+            }
+            else if (enemy.health == 2) {
+                enemyColor = ORANGE;
+            }
+            else {
+                enemyColor = GREEN;
+            }
+
             DrawRectangleV(enemy.position, { 40, 40 }, enemyColor);
         }
 
