@@ -82,7 +82,7 @@ int main() {
         float deltaTime = GetFrameTime();
         gameTime += deltaTime;
         if (static_cast<int>(gameTime) % 10 == 0 && static_cast<int>(gameTime) != 0 && frameCounter % 60 == 0) {
-            scoreMultiplier++;
+            scoreMultiplier*=2;
         }
 
     
@@ -265,7 +265,7 @@ int main() {
         }
 
         DrawText(TextFormat("HP: %d", playerHealth), 10, 10, 20, WHITE);
-        DrawText(TextFormat("Score: %d", score), screenWidth - 100, 10, 20, WHITE);
+        DrawText(TextFormat("Score: %d", score), screenWidth - 175, 10, 20, WHITE);
 
         EndDrawing();
     }

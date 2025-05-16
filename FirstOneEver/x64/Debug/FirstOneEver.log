@@ -1,11 +1,9 @@
 ﻿  FirstOneEver.cpp
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(52,15): warning C4244: 'bağımsız değişken': 'time_t' - 'unsigned int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(136,26): warning C4244: 'başlatılıyor': 'int' - 'float' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(145,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(146,24): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(174,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(214,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(226,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-  FirstOneEver.vcxproj -> C:\Users\Utku\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(52,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(136,26): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(145,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(146,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(174,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(214,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(226,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  FirstOneEver.vcxproj -> C:\Users\iyunu\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
