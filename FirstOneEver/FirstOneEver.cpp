@@ -79,6 +79,13 @@ int main() {
     float enemySpeedIncreaseTime = 0.0f; 
     float enemySpawnIncreaseTime = 0.0f; 
 
+    float ultiCharge = 0.0f;          
+    const float ultiChargeRate = 0.025f; 
+    bool ultiActive = false;
+    int ultiDurationTimer = 0;
+    const int ultiDurationMax = 300;  
+
+
     while (!WindowShouldClose()) {
         frameCounter++;
         float deltaTime = GetFrameTime();
@@ -90,6 +97,11 @@ int main() {
 			enemySpeed += 0.1f;
 			enemySpeedIncreaseTime = 0.0f;
 		}
+
+        if (!ultiActive) {
+            ultiCharge += ultiChargeRate * GetFrameTime();
+            if (ultiCharge > 1.0f) ultiCharge = 1.0f;
+        }
 
         if (static_cast<int>(gameTime) % 10 == 0 && static_cast<int>(gameTime) != 0 && frameCounter % 60 == 0) {
             scoreMultiplier*=2;
@@ -128,6 +140,24 @@ int main() {
         if (IsKeyDown(KEY_LEFT) && playerPosition.x > 0) playerPosition.x -= playerSpeed;
         if (IsKeyDown(KEY_RIGHT) && playerPosition.x < screenWidth - 50) playerPosition.x += playerSpeed;
 
+        if (IsKeyPressed(KEY_SPACE) && ultiCharge >= 1.0f && !ultiActive) {
+            ultiActive = true;
+            ultiCharge = 0.0f;
+            fastShooting = true;  
+            ultiDurationTimer = 0;
+        }
+
+        if (ultiActive) {
+            ultiDurationTimer++;
+            if (ultiDurationTimer >= ultiDurationMax) {
+                ultiActive = false;
+                fastShooting = false; 
+                ultiDurationTimer = 0;
+            }
+        }
+
+
+
         int fps = GetFPS();
         if (fps > 0 && frameCounter % ((fastShooting ? fps / 8 : fps / 4)) == 0) {
             bullets.push_back({ {playerPosition.x + 20, playerPosition.y}, bulletSpeed });
@@ -160,7 +190,7 @@ int main() {
             }
 
             int enemyHealth = enemyLevel;
-            if (enemyLevel == 4) enemyHealth = 6; 
+            if (enemyLevel == 4) enemyHealth = 6;
 
             enemies.push_back({ {enemyX, -40}, enemySpawnSpeed, enemyHealth, enemyLevel * 10 });
         }
@@ -174,7 +204,13 @@ int main() {
             for (int j = enemies.size() - 1; j >= 0; j--) {
                 if (CheckCollision(bullets[i].position, { 10, 20 }, enemies[j].position, { 40, 40 })) {
                     bullets.erase(bullets.begin() + i);
-                    enemies[j].health--;
+
+                    if (ultiActive) {
+                        enemies[j].health -= 100;  
+                    }
+                    else {
+                        enemies[j].health--;
+                    }
 
                     if (enemies[j].health <= 0) {
                         score += enemies[j].score * scoreMultiplier;
@@ -299,11 +335,17 @@ int main() {
             DrawRectangleV(enemy.position, { 40, 40 }, enemyColor);
         }
 
+        
+        DrawRectangle(10, 40, 150, 20, DARKGRAY);
+        DrawRectangle(10, 40, static_cast<int>(150 * ultiCharge), 20, GOLD);
+        DrawText("ULTI", 170, 40, 20, WHITE);
+ 
+
         for (const auto& powerUp : powerUps) {
             Color powerColor =
                 (powerUp.type == 0) ? PURPLE :
                 (powerUp.type == 1) ? BLUE :
-                (powerUp.type == 2) ? SKYBLUE :
+                (powerUp.type == 2) ? BROWN :
                 (powerUp.type == 3) ? GREEN : WHITE;
             DrawRectangleV(powerUp.position, { 30, 30 }, powerColor);
         }
