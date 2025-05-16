@@ -14,6 +14,7 @@ struct Enemy {
     Vector2 position;
     float speed;
     int health;
+    int score; 
 };
 
 struct PowerUp {
@@ -28,15 +29,15 @@ bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
         aPos.y + aSize.y < bPos.y);
 }
 
-void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer) {
+void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer, int& score) {
     playerPosition = { 450 / 2 - 25, 800 - 100 };
     bullets.clear();
     enemies.clear();
     powerUps.clear();
     playerHealth = 3;
     gameOver = false;
+    score = 0;
 
-   
     enemySpeed = 2.0f;
     enemySpeedReduced = false;
     enemySpeedTimer = 0;
@@ -64,12 +65,13 @@ int main() {
     bool fastShooting = false;
     int fastShootingTimer = 0;
 
-  
     bool enemySpeedReduced = false;
     int enemySpeedTimer = 0;
 
     int playerHealth = 3;
     bool gameOver = false;
+
+    int score = 0;
 
     while (!WindowShouldClose()) {
         frameCounter++;
@@ -90,7 +92,7 @@ int main() {
 
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
                     mousePos.y > screenHeight / 2 - 30 && mousePos.y < screenHeight / 2 + 10) {
-                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer);
+                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score);
                 }
 
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
@@ -122,7 +124,7 @@ int main() {
         if (frameCounter % 60 == 0) {
             float enemyX = rand() % (screenWidth - 40);
             int enemyLevel = rand() % 3 + 1;
-            enemies.push_back({ {enemyX, -40}, enemySpeed, enemyLevel });
+            enemies.push_back({ {enemyX, -40}, enemySpeed, enemyLevel, enemyLevel * 10});
         }
 
         for (auto& enemy : enemies) {
@@ -136,6 +138,8 @@ int main() {
                     enemies[j].health--;
 
                     if (enemies[j].health <= 0) {
+                        score += enemies[j].score; 
+
                         if (rand() % 100 < 20) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, rand() % 3 });
                         }
@@ -168,7 +172,7 @@ int main() {
                         enemySpeed -= 0.5f;
                         enemySpeedReduced = true;
                     }
-                    enemySpeedTimer = 0; 
+                    enemySpeedTimer = 0;
                 }
                 else if (powerUps[i].type == 3 && playerHealth < 3) {
                     playerHealth++;
@@ -186,11 +190,10 @@ int main() {
             }
         }
 
-
         if (enemySpeedReduced) {
             enemySpeedTimer++;
-            if (enemySpeedTimer > 600) {  
-                enemySpeed += 0.5f;       
+            if (enemySpeedTimer > 600) {
+                enemySpeed += 0.5f;
                 enemySpeedReduced = false;
                 enemySpeedTimer = 0;
             }
@@ -250,6 +253,7 @@ int main() {
         }
 
         DrawText(TextFormat("HP: %d", playerHealth), 10, 10, 20, WHITE);
+        DrawText(TextFormat("Score: %d", score), screenWidth - 100, 10, 20, WHITE);
 
         EndDrawing();
     }
