@@ -29,9 +29,10 @@ bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
         aPos.y + aSize.y < bPos.y);
 }
 
-void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer, int& score) {
+void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer, int& score, float& playerSpeed) {
     playerPosition = { 450 / 2 - 25, 800 - 100 };
     bullets.clear();
+	playerSpeed = 5.0f; 
     enemies.clear();
     powerUps.clear();
     playerHealth = 3;
