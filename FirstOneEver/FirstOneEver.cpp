@@ -14,7 +14,9 @@ struct Enemy {
     Vector2 position;
     float speed;
     int health;
+    int level;
     int score;
+	Texture2D texture;
 };
 
 struct PowerUp {
@@ -50,6 +52,11 @@ int main() {
     InitWindow(screenWidth, screenHeight, "prototip");
     SetTargetFPS(60);
     srand(time(NULL));
+
+	Texture2D enemyTexture1 = LoadTexture("assets/images/enemylevel1.png");
+    Texture2D enemyTexture2 = LoadTexture("assets/images/enemylevel2.png");
+    Texture2D enemyTexture3 = LoadTexture("assets/images/enemylevel3.png");
+    Texture2D enemyTexture4 = LoadTexture("assets/images/enemylevel4.png");
 
     Vector2 playerPosition = { screenWidth / 2 - 25, screenHeight - 100 };
     Vector2 clonePosition;
@@ -129,14 +136,12 @@ int main() {
             if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                 Vector2 mousePos = GetMousePosition();
 
-                // RESTART
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
                     mousePos.y > screenHeight / 2 - 30 && mousePos.y < screenHeight / 2 + 10) {
                     ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score, playerSpeed);
                     paused = false;
                 }
 
-                // EXIT
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
                     mousePos.y > screenHeight / 2 + 30 && mousePos.y < screenHeight / 2 + 70) {
                     CloseWindow();
@@ -145,7 +150,7 @@ int main() {
             }
 
             EndDrawing();
-            continue; // Oyun mantýðýný atla
+            continue; 
         }
 
         if (gameOver) {
@@ -251,7 +256,20 @@ int main() {
             int enemyHealth = enemyLevel;
             if (enemyLevel == 4) enemyHealth = 6;
 
-            enemies.push_back({ {enemyX, -40}, enemySpawnSpeed, enemyHealth, enemyLevel * 10 });
+            Texture2D selectedTexture;
+            if (enemyLevel == 4) {
+                selectedTexture = enemyTexture4;
+            }
+            else if (enemyLevel == 3) {
+                selectedTexture = enemyTexture3;
+            }
+            else if (enemyLevel == 2) {
+                selectedTexture = enemyTexture2;
+            }
+            else {
+                selectedTexture = enemyTexture1;
+            }
+			enemies.push_back({ {enemyX, 0}, enemySpawnSpeed, enemyHealth, enemyLevel, enemyLevel * 10, selectedTexture });
         }
 
 
@@ -261,7 +279,7 @@ int main() {
 
         for (int i = bullets.size() - 1; i >= 0; i--) {
             for (int j = enemies.size() - 1; j >= 0; j--) {
-                if (CheckCollision(bullets[i].position, { 10, 20 }, enemies[j].position, { 40, 40 })) {
+                if (CheckCollision(bullets[i].position, { 10, 20 }, enemies[j].position, { 80, 80 })) {
                     bullets.erase(bullets.begin() + i);
 
                     if (ultiActive) {
@@ -387,7 +405,7 @@ int main() {
 
         DrawRectangleV(playerPosition, { 50, 50 }, BLUE);
         if (cloneActive) {
-            DrawRectangleV(clonePosition, { 50, 50 }, SKYBLUE); // Klon farklý renkte
+            DrawRectangleV(clonePosition, { 50, 50 }, SKYBLUE); 
         }
         for (const auto& bullet : bullets) {
             DrawRectangleV(bullet.position, { 10, 20 }, WHITE);
@@ -398,26 +416,8 @@ int main() {
         }
 
         for (const auto& enemy : enemies) {
-            Color enemyColor;
-            if (enemy.health == 6) {
-                enemyColor = DARKPURPLE;
-            }
-            else if (enemy.health == 5) {
-                enemyColor = PINK;
-            }
-            else if (enemy.health == 3) {
-                enemyColor = RED;
-            }
-            else if (enemy.health == 2) {
-                enemyColor = ORANGE;
-            }
-            else {
-                enemyColor = GREEN;
-            }
-
-            DrawRectangleV(enemy.position, { 40, 40 }, enemyColor);
+            DrawTextureEx(enemy.texture, enemy.position, 0.0f, 2.0f, WHITE);
         }
-
 
         DrawRectangle(10, 40, 150, 20, DARKGRAY);
         DrawRectangle(10, 40, static_cast<int>(150 * ultiCharge), 20, GOLD);
@@ -439,6 +439,11 @@ int main() {
 
         EndDrawing();
     }
+
+    UnloadTexture(enemyTexture1);
+    UnloadTexture(enemyTexture2);
+    UnloadTexture(enemyTexture3);
+    UnloadTexture(enemyTexture4);
 
     CloseWindow();
     return 0;
