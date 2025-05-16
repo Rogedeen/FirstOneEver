@@ -38,7 +38,6 @@ void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vecto
     playerHealth = 3;
     gameOver = false;
     score = 0;
-
     enemySpeed = 2.0f;
     enemySpeedReduced = false;
     enemySpeedTimer = 0;
@@ -124,7 +123,7 @@ int main() {
 
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
                     mousePos.y > screenHeight / 2 - 30 && mousePos.y < screenHeight / 2 + 10) {
-                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score);
+                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score, playerSpeed);
                 }
 
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
