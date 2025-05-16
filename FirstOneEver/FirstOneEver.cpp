@@ -68,7 +68,7 @@ int main() {
     bool enemySpeedReduced = false;
     int enemySpeedTimer = 0;
 
-    int playerHealth = 3;
+    int playerHealth = 3000;
     bool gameOver = false;
 
     int score = 0;
@@ -76,16 +76,24 @@ int main() {
     int scoreMultiplier = 1;
     float gameTime = 0.0f;
 
+    float enemySpeedIncreaseTime = 0.0f; //burada deðiþiklik yaptým -y
+    float enemySpawnIncreaseTime = 0.0f; //
 
     while (!WindowShouldClose()) {
         frameCounter++;
         float deltaTime = GetFrameTime();
         gameTime += deltaTime;
+        enemySpeedIncreaseTime += deltaTime;
+        enemySpawnIncreaseTime += deltaTime;
+
+		if (enemySpeedIncreaseTime >= 10.0f) {
+			enemySpeed += 0.1f;
+			enemySpeedIncreaseTime = 0.0f;
+		}
+
         if (static_cast<int>(gameTime) % 10 == 0 && static_cast<int>(gameTime) != 0 && frameCounter % 60 == 0) {
             scoreMultiplier*=2;
         }
-
-    
 
         if (gameOver) {
             BeginDrawing();
