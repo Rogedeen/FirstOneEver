@@ -73,8 +73,19 @@ int main() {
 
     int score = 0;
 
+    int scoreMultiplier = 1;
+    float gameTime = 0.0f;
+
+
     while (!WindowShouldClose()) {
         frameCounter++;
+        float deltaTime = GetFrameTime();
+        gameTime += deltaTime;
+        if (static_cast<int>(gameTime) % 10 == 0 && static_cast<int>(gameTime) != 0 && frameCounter % 60 == 0) {
+            scoreMultiplier++;
+        }
+
+    
 
         if (gameOver) {
             BeginDrawing();
@@ -138,7 +149,8 @@ int main() {
                     enemies[j].health--;
 
                     if (enemies[j].health <= 0) {
-                        score += enemies[j].score; 
+                        score += enemies[j].score * scoreMultiplier;
+
 
                         if (rand() % 100 < 20) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, rand() % 3 });
