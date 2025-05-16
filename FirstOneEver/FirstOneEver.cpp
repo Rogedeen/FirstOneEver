@@ -236,20 +236,22 @@ int main() {
                     if (enemies[j].health <= 0) {
                         score += enemies[j].score * scoreMultiplier;
 
+                        int rando = rand() % 100;
 
-                        if (rand() % 100 < 25) {
-                            int randomType = rand() % 4; // 0-3
-                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, randomType });
+                        if (rando > 0 && rando < 8) {
+                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 0 });
                         }
-
-                        // Klon power-up'ı nadir düşsün (%5)
-                        if (rand() % 100 < 5 && !cloneActive) {
-                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 4 });
+                        else if (rando >= 8 && rando < 16) {
+                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 1 });
                         }
-
-
-                        if (rand() % 100 < 2) {
+                        else if (rando >= 16 && rando < 24) {
+                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 2 });
+                        }
+                        else if (rando >= 24 && rando < 29) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 3 });
+                        }
+                        else if (rando >= 29 && rando < 37) {
+                            powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 4 });
                         }
 
                         enemies.erase(enemies.begin() + j);
@@ -267,6 +269,7 @@ int main() {
             if (CheckCollision(playerPosition, { 50, 50 }, powerUps[i].position, { 30, 30 })) {
                 if (powerUps[i].type == 0) {
                     fastShooting = true;
+					fastShootingTimer = 0;
                 }
                 else if (powerUps[i].type == 1) {
                     playerSpeed += 2.0f;
@@ -284,7 +287,8 @@ int main() {
                 else if (powerUps[i].type == 3 && playerHealth < 3) {
                     playerHealth++;
                 }
-                else if (powerUps[i].type == 4 && !cloneActive) {
+                if (powerUps[i].type == 4) {
+                    playerHealth++;
                     cloneActive = true;
                     clonePosition = playerPosition;
                     cloneDuration = 0;

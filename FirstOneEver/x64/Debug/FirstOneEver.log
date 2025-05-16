@@ -1,1 +1,9 @@
-﻿  FirstOneEver.vcxproj -> C:\Users\iyunu\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
+﻿  FirstOneEver.cpp
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(52,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(195,26): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(224,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(225,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(270,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(320,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(332,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  FirstOneEver.vcxproj -> C:\Users\iyunu\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
