@@ -28,15 +28,19 @@ bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
         aPos.y + aSize.y < bPos.y);
 }
 
-void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver) {
+void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer) {
     playerPosition = { 450 / 2 - 25, 800 - 100 };
     bullets.clear();
     enemies.clear();
     powerUps.clear();
     playerHealth = 3;
     gameOver = false;
-}
 
+   
+    enemySpeed = 2.0f;
+    enemySpeedReduced = false;
+    enemySpeedTimer = 0;
+}
 
 int main() {
     const int screenWidth = 450;
@@ -56,8 +60,13 @@ int main() {
     int frameCounter = 0;
     float bulletSpeed = 7.0f;
     float enemySpeed = 2.0f;
+
     bool fastShooting = false;
     int fastShootingTimer = 0;
+
+  
+    bool enemySpeedReduced = false;
+    int enemySpeedTimer = 0;
 
     int playerHealth = 3;
     bool gameOver = false;
@@ -81,7 +90,7 @@ int main() {
 
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
                     mousePos.y > screenHeight / 2 - 30 && mousePos.y < screenHeight / 2 + 10) {
-                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver);
+                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer);
                 }
 
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
@@ -92,7 +101,7 @@ int main() {
             }
 
             EndDrawing();
-			continue;
+            continue;
         }
 
         if (IsKeyDown(KEY_LEFT) && playerPosition.x > 0) playerPosition.x -= playerSpeed;
@@ -127,7 +136,7 @@ int main() {
                     enemies[j].health--;
 
                     if (enemies[j].health <= 0) {
-                        if (rand() % 100 < 15) {
+                        if (rand() % 100 < 20) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, rand() % 3 });
                         }
 
@@ -148,10 +157,22 @@ int main() {
 
         for (int i = powerUps.size() - 1; i >= 0; i--) {
             if (CheckCollision(playerPosition, { 50, 50 }, powerUps[i].position, { 30, 30 })) {
-                if (powerUps[i].type == 0) fastShooting = true;
-                else if (powerUps[i].type == 1) playerSpeed += 2.0f;
-                else if (powerUps[i].type == 2) enemySpeed -= 0.5f;
-                else if (powerUps[i].type == 3 && playerHealth < 3) playerHealth++;
+                if (powerUps[i].type == 0) {
+                    fastShooting = true;
+                }
+                else if (powerUps[i].type == 1) {
+                    playerSpeed += 2.0f;
+                }
+                else if (powerUps[i].type == 2) {
+                    if (!enemySpeedReduced) {
+                        enemySpeed -= 0.5f;
+                        enemySpeedReduced = true;
+                    }
+                    enemySpeedTimer = 0; 
+                }
+                else if (powerUps[i].type == 3 && playerHealth < 3) {
+                    playerHealth++;
+                }
 
                 powerUps.erase(powerUps.begin() + i);
             }
@@ -162,6 +183,16 @@ int main() {
             if (fastShootingTimer > 300) {
                 fastShooting = false;
                 fastShootingTimer = 0;
+            }
+        }
+
+
+        if (enemySpeedReduced) {
+            enemySpeedTimer++;
+            if (enemySpeedTimer > 600) {  
+                enemySpeed += 0.5f;       
+                enemySpeedReduced = false;
+                enemySpeedTimer = 0;
             }
         }
 
@@ -179,7 +210,7 @@ int main() {
 
         for (int i = enemies.size() - 1; i >= 0; i--) {
             if (enemies[i].position.y > screenHeight) {
-                playerHealth--;  
+                playerHealth--;
                 enemies.erase(enemies.begin() + i);
 
                 if (playerHealth <= 0) {
