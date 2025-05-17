@@ -62,6 +62,22 @@ int main() {
     Texture2D enemyTexture3 = LoadTexture("assets/images/enemylevel3.png");
     Texture2D enemyTexture4 = LoadTexture("assets/images/enemylevel4.png");
 
+    Texture2D engineTextures[4];  
+    const int ENGINE_FRAME_COUNT = 8;
+    const int ENGINE_FRAME_WIDTH = 64; 
+    const int ENGINE_FRAME_HEIGHT = 64; 
+
+    int engineFrame = 0;
+    int engineTimer = 0;
+    const int engineFrameSpeed = 6;
+
+    engineTextures[0] = LoadTexture("assets/images/engine1.png");
+    engineTextures[1] = LoadTexture("assets/images/engine2.png");
+    engineTextures[2] = LoadTexture("assets/images/engine3.png");
+    engineTextures[3] = LoadTexture("assets/images/engine4.png");
+
+
+
     Vector2 playerPosition = { screenWidth / 2 - 25, screenHeight - 100 };
     Vector2 clonePosition;
     bool cloneActive = false;
@@ -120,6 +136,12 @@ int main() {
         enemySpeedIncreaseTime += deltaTime;
         enemySpawnIncreaseTime += deltaTime;
 
+        engineTimer++;
+        if (engineTimer >= engineFrameSpeed) {
+            engineFrame = (engineFrame + 1) % ENGINE_FRAME_COUNT;
+            engineTimer = 0;
+        }
+
         if (enemySpeedIncreaseTime >= 10.0f) {
             enemySpeed += 0.1f;
             enemySpeedIncreaseTime = 0.0f;
@@ -161,19 +183,19 @@ int main() {
             }
 
             EndDrawing();
-            continue; 
+            continue;
         }
 
         if (gameOver) {
 
             StopSound(shootSound);
 
-            if (!lastFrameGameOver) {  
+            if (!lastFrameGameOver) {
                 PlaySound(gamerOverSound);
             }
 
             lastFrameGameOver = true;
-         
+
             BeginDrawing();
             ClearBackground(BLACK);
             DrawText("GAME OVER", screenWidth / 2 - MeasureText("GAME OVER", 40) / 2, screenHeight / 2 - 100, 40, RED);
@@ -203,7 +225,7 @@ int main() {
             continue;
         }
         else {
-            lastFrameGameOver = false; 
+            lastFrameGameOver = false;
         }
 
         if (IsKeyDown(KEY_LEFT) && playerPosition.x > 0) playerPosition.x -= playerSpeed;
@@ -295,7 +317,7 @@ int main() {
             else {
                 selectedTexture = enemyTexture1;
             }
-			enemies.push_back({ {enemyX, 0}, enemySpawnSpeed, enemyHealth, enemyLevel, enemyLevel * 10, selectedTexture });
+            enemies.push_back({ {enemyX, 0}, enemySpawnSpeed, enemyHealth, enemyLevel, enemyLevel * 10, selectedTexture });
         }
 
 
@@ -351,7 +373,7 @@ int main() {
             if (CheckCollision(playerPosition, { 50, 50 }, powerUps[i].position, { 30, 30 })) {
                 if (powerUps[i].type == 0) {
                     fastShooting = true;
-					fastShootingTimer = 0;
+                    fastShootingTimer = 0;
                 }
                 else if (powerUps[i].type == 1) {
                     playerSpeed += 2.0f;
@@ -432,7 +454,7 @@ int main() {
 
         DrawRectangleV(playerPosition, { 50, 50 }, BLUE);
         if (cloneActive) {
-            DrawRectangleV(clonePosition, { 50, 50 }, SKYBLUE); 
+            DrawRectangleV(clonePosition, { 50, 50 }, SKYBLUE);
         }
         for (const auto& bullet : bullets) {
             DrawRectangleV(bullet.position, { 10, 20 }, WHITE);
@@ -444,6 +466,63 @@ int main() {
 
         for (const auto& enemy : enemies) {
             DrawTextureEx(enemy.texture, enemy.position, 0.0f, 2.0f, WHITE);
+
+            int level = enemy.level;
+            if (level >= 1 && level <= 4) {
+                Texture2D currentEngineTexture = engineTextures[level - 1];
+
+                Rectangle sourceRec = {
+                    (float)(engineFrame * ENGINE_FRAME_WIDTH),
+                    0,
+                    (float)ENGINE_FRAME_WIDTH,
+                    (float)ENGINE_FRAME_HEIGHT
+                };
+
+                Vector2 enginePos;
+                float scale = 4.0f;
+
+                switch (enemy.level) {
+                case 1:
+                    enginePos = {
+                        enemy.position.x,
+                        enemy.position.y
+                    };
+                    scale = 2.0f;
+                    break;
+                case 2:
+                    enginePos = {
+                        enemy.position.x, 
+                        enemy.position.y 
+                    };
+                    scale = 2.0f;
+                    break;
+                case 3:
+                    enginePos = {
+                        enemy.position.x,
+                        enemy.position.y - 15 
+                    };
+                    scale = 2.0f;
+                    break;
+                case 4:
+                    enginePos = {
+                        enemy.position.x,
+                        enemy.position.y 
+                    };
+                    scale = 2.0f;
+                    break;
+                default:
+                    enginePos = enemy.position;
+                    break;
+                }
+                Rectangle destRec = {
+                    enginePos.x,
+                    enginePos.y,
+                    ENGINE_FRAME_WIDTH * scale,
+                    ENGINE_FRAME_HEIGHT * scale
+                };
+
+                DrawTexturePro(currentEngineTexture, sourceRec, destRec, { 0, 0 }, 0.0f, WHITE);
+            }
         }
 
         DrawRectangle(10, 40, 150, 20, DARKGRAY);
@@ -452,12 +531,12 @@ int main() {
 
 
         for (const auto& powerUp : powerUps) {
-            Color powerColor =
-                (powerUp.type == 0) ? PURPLE :
-                (powerUp.type == 1) ? BLUE :
-                (powerUp.type == 2) ? BROWN :
-                (powerUp.type == 3) ? GREEN : WHITE;
-            (powerUp.type == 4) ? ORANGE : WHITE;
+            Color powerColor;
+                if (powerUp.type == 0) powerColor = PURPLE;
+                else if (powerUp.type == 1) powerColor = BLUE;
+                else if (powerUp.type == 2) powerColor = BROWN;
+                else if (powerUp.type == 3) powerColor = GREEN;
+                else if (powerUp.type == 4) powerColor = WHITE;
             DrawRectangleV(powerUp.position, { 30, 30 }, powerColor);
         }
 
@@ -471,6 +550,10 @@ int main() {
     UnloadTexture(enemyTexture2);
     UnloadTexture(enemyTexture3);
     UnloadTexture(enemyTexture4);
+    for (int i = 0; i < 4; i++) {
+        UnloadTexture(engineTextures[i]);
+    }
+
     UnloadSound(shootSound);
     CloseAudioDevice();
 
