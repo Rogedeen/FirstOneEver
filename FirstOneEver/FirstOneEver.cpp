@@ -153,6 +153,11 @@ int main() {
     Sound ultiShootSound = LoadSound("assets/sounds/ultimermi.wav");
     Sound powerupSound = LoadSound("assets/sounds/powerupyakalama.wav");
     Sound healingSound = LoadSound("assets/sounds/canalma.wav");
+    Sound explosionSounds[4];
+    explosionSounds[0] = LoadSound("assets/sounds/explosion1.wav");
+    explosionSounds[1] = LoadSound("assets/sounds/explosion2.wav");
+    explosionSounds[2] = LoadSound("assets/sounds/explosion3.wav");
+    explosionSounds[3] = LoadSound("assets/sounds/explosion4.wav");
 
 
 
@@ -402,6 +407,8 @@ int main() {
                     }
 
                     if (enemies[j].health <= 0) {
+
+                        PlaySound(explosionSounds[rand() % 3]);
                         score += enemies[j].score * scoreMultiplier;
                         int levelIndex = enemies[j].level - 1;
                         explosions.push_back({ enemies[j].position, 0, 0, explosionTextures[levelIndex] });
