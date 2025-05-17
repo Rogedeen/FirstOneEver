@@ -31,7 +31,7 @@ bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
         aPos.y + aSize.y < bPos.y);
 }
 
-void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer, unsigned long int& score, float& playerSpeed) {
+void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vector<Enemy>& enemies, std::vector<PowerUp>& powerUps, int& playerHealth, bool& gameOver, float& enemySpeed, bool& enemySpeedReduced, int& enemySpeedTimer, unsigned long int& score, float& playerSpeed, float& scoreMultiplier, float& gameTime, float& ultiCharge) {
     playerPosition = { 450 / 2 - 25, 800 - 100 };
     bullets.clear();
     playerSpeed = 5.0f;
@@ -43,6 +43,9 @@ void ResetGame(Vector2& playerPosition, std::vector<Bullet>& bullets, std::vecto
     enemySpeed = 2.0f;
     enemySpeedReduced = false;
     enemySpeedTimer = 0;
+	scoreMultiplier = 1.0f;
+	gameTime = 0.0f;
+	ultiCharge = 0.0f;
 }
 
 int main() {
@@ -85,7 +88,7 @@ int main() {
 
     unsigned long int score = 0;
 
-    int scoreMultiplier = 1;
+    float scoreMultiplier = 1.0f;
     float gameTime = 0.0f;
 
     float enemySpeedIncreaseTime = 0.0f;
@@ -119,8 +122,8 @@ int main() {
             if (ultiCharge > 1.0f) ultiCharge = 1.0f;
         }
 
-        if (static_cast<int>(gameTime) % 10 == 0 && static_cast<int>(gameTime) != 0 && frameCounter % 60 == 0) {
-            scoreMultiplier *= 2;
+        if (static_cast<int>(gameTime) % 2 == 0 && static_cast<int>(gameTime) != 0 && frameCounter % 60 == 0) {
+            scoreMultiplier *= 1.1;
         }
         if (paused) {
             BeginDrawing();
@@ -138,7 +141,7 @@ int main() {
 
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
                     mousePos.y > screenHeight / 2 - 30 && mousePos.y < screenHeight / 2 + 10) {
-                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score, playerSpeed);
+                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score, playerSpeed, scoreMultiplier, gameTime, ultiCharge);
                     paused = false;
                 }
 
@@ -169,7 +172,7 @@ int main() {
 
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
                     mousePos.y > screenHeight / 2 - 30 && mousePos.y < screenHeight / 2 + 10) {
-                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score, playerSpeed);
+                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score, playerSpeed, scoreMultiplier, gameTime, ultiCharge);
                 }
 
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
@@ -294,19 +297,19 @@ int main() {
 
                         int rando = rand() % 100;
 
-                        if (rando > 0 && rando < 8) {
+                        if (rando > 0 && rando < 6) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 0 });
                         }
-                        else if (rando >= 8 && rando < 16) {
+                        else if (rando >= 6 && rando < 11) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 1 });
                         }
-                        else if (rando >= 16 && rando < 24) {
+                        else if (rando >= 11 && rando < 16) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 2 });
                         }
-                        else if (rando >= 24 && rando < 29) {
+                        else if (rando >= 16 && rando < 19) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 3 });
                         }
-                        else if (rando >= 29 && rando < 37) {
+                        else if (rando >= 19 && rando < 22) {
                             powerUps.push_back({ {enemies[j].position.x, enemies[j].position.y}, 4 });
                         }
 
