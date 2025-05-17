@@ -99,7 +99,7 @@ int main() {
     bool ultiActive = false;
     int ultiDurationTimer = 0;
     const int ultiDurationMax = 300;
-
+    
 	const float maxPlayerSpeed = 8.0f;
     const int maxPlayerHealth = 5;
 
