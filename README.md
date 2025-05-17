@@ -24,7 +24,6 @@ Galaksiyi istilacı uzaylı gemilerinden korumak üzere sonu olmayan bir yola ç
 - **Hız Güçlendirmesi**: Oyuncunun uzay gemisinin hızını artırır.
 - **Atış Hızı Güçlendirmesi**: Oyuncunun atış hızını artırır.
 - **Can Güçlendirmesi**: Oyuncunun uzay gemisinin canını maksimum 5 olacak şekilde arttırır.
-  ![image alt](https://github.com/Rogedeen/FirstOneEver/blob/61f4a8766192e47752a52d8fe2ff705f4b63cc6b/health%20pack.png)
 - **Klonlama Güçlendirmesi**: Oyuncunun uzay gemisinin yanında bir klon oluşturur ve bu klon oyuncu ile simetrik şekilde hareket ederek oyuncuyu güçlendirmeleri ile beraber taklit eder.
 - **Düşman Yavaşlatma Güçlendirmesi**: Düşman uzay gemilerinin hızını azaltır.
 
