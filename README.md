@@ -27,7 +27,6 @@ Galaksiyi istilacı uzaylı gemilerinden korumak üzere sonu olmayan bir yola ç
 - **Klonlama Güçlendirmesi**: Oyuncunun uzay gemisinin yanında bir klon oluşturur ve bu klon oyuncu ile simetrik şekilde hareket ederek oyuncuyu güçlendirmeleri ile beraber taklit eder.
 - **Düşman Yavaşlatma Güçlendirmesi**: Düşman uzay gemilerinin hızını azaltır.
 
-  
   ![image alt](https://github.com/Rogedeen/FirstOneEver/blob/a1d857e7f7b242bfbfd78ada3e123b0cc0eb92fb/G%C3%BC%C3%A7lendirmeler.png)
 
 ## Kurulum
