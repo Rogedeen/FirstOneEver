@@ -101,6 +101,8 @@ int main() {
     Texture2D playerTextureFull = LoadTexture("assets/images/mainshipfullhealth.png");
     Texture2D playerTextureDamaged = LoadTexture("assets/images/mainshipdamaged.png");
     Texture2D playerTextureCritical = LoadTexture("assets/images/mainshipheavlydamaged.png");
+    Texture2D backgroundTexture = LoadTexture("assets/images/space_background.png");
+    float backgroundY = 0.0f;
 
     Texture2D powerUpTextures[5];
     powerUpTextures[0] = LoadTexture("assets/images/fastshooting.png");
@@ -540,6 +542,13 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
 
+        DrawTextureEx(backgroundTexture, { 0, backgroundY }, 0.0f, 1.0f, WHITE);
+        DrawTextureEx(backgroundTexture, { 0, backgroundY - (float)backgroundTexture.height }, 0.0f, 1.0f, WHITE);
+        
+        backgroundY += 50 * deltaTime; 
+        if (backgroundY >= (float)backgroundTexture.height)
+            backgroundY = 0.0f;
+
         Texture2D currentPlayerTexture;
 
         if (playerHealth >= 3) {
@@ -687,6 +696,8 @@ int main() {
     for (int i = 0; i < 5; i++) {
         UnloadTexture(powerUpTextures[i]);
     }
+    UnloadTexture(backgroundTexture);
+
 
 
     CloseWindow();
