@@ -98,6 +98,11 @@ int main() {
     const int EXPLOSION_FRAME_HEIGHT = 64;
     const int EXPLOSION_FRAME_SPEED = 4; 
 
+    Texture2D playerTextureFull = LoadTexture("assets/images/mainshipfullhealth.png");
+    Texture2D playerTextureDamaged = LoadTexture("assets/images/mainshipdamaged.png");
+    Texture2D playerTextureCritical = LoadTexture("assets/images/mainshipheavlydamaged.png");
+
+
 
 
 
@@ -531,10 +536,27 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        DrawRectangleV(playerPosition, { 50, 50 }, BLUE);
-        if (cloneActive) {
-            DrawRectangleV(clonePosition, { 50, 50 }, SKYBLUE);
+        Texture2D currentPlayerTexture;
+
+        if (playerHealth >= 3) {
+            currentPlayerTexture = playerTextureFull;
         }
+        else if (playerHealth == 2) {
+            currentPlayerTexture = playerTextureDamaged;
+        }
+        else {
+            currentPlayerTexture = playerTextureCritical;
+        }
+        Vector2 adjustedPlayerPos = {
+        playerPosition.x - 35,  
+        playerPosition.y        
+        };
+        DrawTextureEx(currentPlayerTexture, adjustedPlayerPos, 0.0f, 2.5f, WHITE);
+
+        if (cloneActive) {
+            DrawTextureEx(currentPlayerTexture, clonePosition, 0.0f, 2.5f, SKYBLUE);
+        }
+
         for (const auto& bullet : bullets) {
             DrawRectangleV(bullet.position, { 10, 20 }, WHITE);
         }
@@ -657,6 +679,9 @@ int main() {
     UnloadSound(ultiStartSound);
     CloseAudioDevice();
 
+    UnloadTexture(playerTextureFull);
+    UnloadTexture(playerTextureDamaged);
+    UnloadTexture(playerTextureCritical);
 
     CloseWindow();
     return 0;
