@@ -148,8 +148,16 @@ int main() {
     Sound shootSound = LoadSound("assets/sounds/normal_mermi_sesi.wav");
     Sound gamerOverSound = LoadSound("assets/sounds/gameover.wav");
     Sound cloneSound = LoadSound("assets/sounds/klon.wav");
+    Sound ultiCooldownSound = LoadSound("assets/sounds/ultidolumsesi.wav");
+    Sound ultiStartSound = LoadSound("assets/sounds/ulti_baslama.wav");
+    Sound ultiShootSound = LoadSound("assets/sounds/ultimermi.wav");
+    Sound powerupSound = LoadSound("assets/sounds/powerupyakalama.wav");
+    Sound healingSound = LoadSound("assets/sounds/canalma.wav");
 
-    bool lastFrameGameOver = false;  
+
+
+    bool lastFrameGameOver = false; 
+    bool ultiWarningPlayed = false;
 
    
     while (!WindowShouldClose()) {
@@ -172,9 +180,21 @@ int main() {
             enemySpeedIncreaseTime = 0.0f;
         }
 
-        if (!ultiActive) {
-            ultiCharge += ultiChargeRate * GetFrameTime();
-            if (ultiCharge > 1.0f) ultiCharge = 1.0f;
+        if (!gameOver) {
+            if (!ultiActive) {
+                ultiCharge += ultiChargeRate * GetFrameTime();
+                if (ultiCharge > 1.0f) ultiCharge = 1.0f;
+            }
+        }
+
+        float ultiWarningThreshold = 1.0f - (9.0f * ultiChargeRate); 
+        if (ultiCharge >= ultiWarningThreshold && !ultiWarningPlayed && !ultiActive) {
+            PlaySound(ultiCooldownSound);
+            ultiWarningPlayed = true;
+        }
+
+        if (ultiActive || ultiCharge < ultiWarningThreshold) {
+            ultiWarningPlayed = false;
         }
 
         if (static_cast<int>(gameTime) % 2 == 0 && static_cast<int>(gameTime) != 0 && frameCounter % 60 == 0) {
@@ -268,6 +288,7 @@ int main() {
             }
         }
         if (IsKeyPressed(KEY_SPACE) && ultiCharge >= 1.0f && !ultiActive) {
+            PlaySound(ultiStartSound);
             ultiActive = true;
             ultiCharge = 0.0f;
             fastShooting = true;
@@ -295,7 +316,12 @@ int main() {
                 bullets.push_back({ {clonePosition.x + 20, clonePosition.y}, bulletSpeed });
             }
 
-            PlaySound(shootSound);
+            if (ultiActive) {
+                PlaySound(ultiShootSound);
+            }
+            else {
+                PlaySound(shootSound);
+            }
         }
 
 
@@ -414,16 +440,19 @@ int main() {
         for (int i = powerUps.size() - 1; i >= 0; i--) {
             if (CheckCollision(playerPosition, { 50, 50 }, powerUps[i].position, { 30, 30 })) {
                 if (powerUps[i].type == 0) {
+                    PlaySound(powerupSound);
                     fastShooting = true;
                     fastShootingTimer = 0;
                 }
                 else if (powerUps[i].type == 1) {
+                    PlaySound(powerupSound);
                     playerSpeed += 2.0f;
                     if (playerSpeed > maxPlayerSpeed) {
                         playerSpeed = maxPlayerSpeed;
                     }
                 }
                 else if (powerUps[i].type == 2) {
+                    PlaySound(powerupSound);
                     if (!enemySpeedReduced) {
                         enemySpeed -= 0.5f;
                         enemySpeedReduced = true;
@@ -431,6 +460,7 @@ int main() {
                     enemySpeedTimer = 0;
                 }
                 else if (powerUps[i].type == 3 && playerHealth < maxPlayerHealth) {
+                    PlaySound(healingSound);
                     playerHealth++;
                 }
                 if (powerUps[i].type == 4) {
@@ -617,6 +647,7 @@ int main() {
         UnloadTexture(explosionTextures[i]);
     }
     UnloadSound(shootSound);
+    UnloadSound(ultiStartSound);
     CloseAudioDevice();
 
 
