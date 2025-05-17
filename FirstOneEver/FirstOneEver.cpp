@@ -24,6 +24,14 @@ struct PowerUp {
     int type;
 };
 
+struct Explosion {
+    Vector2 position;
+    int frame;
+    int timer;
+	Texture2D texture;
+};
+
+
 bool CheckCollision(Vector2 aPos, Vector2 aSize, Vector2 bPos, Vector2 bSize) {
     return !(aPos.x > bPos.x + bSize.x ||
         aPos.x + aSize.x < bPos.x ||
@@ -75,6 +83,21 @@ int main() {
     engineTextures[1] = LoadTexture("assets/images/engine2.png");
     engineTextures[2] = LoadTexture("assets/images/engine3.png");
     engineTextures[3] = LoadTexture("assets/images/engine4.png");
+
+    Texture2D explosionTextures[4];
+    std::vector<Explosion> explosions;
+
+    explosionTextures[0] = LoadTexture("assets/images/enemydie1.png");
+    explosionTextures[1] = LoadTexture("assets/images/enemydie2.png");
+    explosionTextures[2] = LoadTexture("assets/images/enemydie3.png");
+    explosionTextures[3] = LoadTexture("assets/images/enemydie4.png");
+
+
+    const int EXPLOSION_FRAME_COUNT = 5;
+    const int EXPLOSION_FRAME_WIDTH = 64;
+    const int EXPLOSION_FRAME_HEIGHT = 64;
+    const int EXPLOSION_FRAME_SPEED = 4; 
+
 
 
 
@@ -135,6 +158,8 @@ int main() {
         gameTime += deltaTime;
         enemySpeedIncreaseTime += deltaTime;
         enemySpawnIncreaseTime += deltaTime;
+
+
 
         engineTimer++;
         if (engineTimer >= engineFrameSpeed) {
@@ -325,6 +350,19 @@ int main() {
             enemy.position.y += enemy.speed;
         }
 
+        
+        for (int i = explosions.size() - 1; i >= 0; i--) {
+            explosions[i].timer++;
+            if (explosions[i].timer >= EXPLOSION_FRAME_SPEED) {
+                explosions[i].frame++;
+                explosions[i].timer = 0;
+            }
+
+            if (explosions[i].frame >= EXPLOSION_FRAME_COUNT) {
+                explosions.erase(explosions.begin() + i);
+            }
+        }
+
         for (int i = bullets.size() - 1; i >= 0; i--) {
             for (int j = enemies.size() - 1; j >= 0; j--) {
                 if (CheckCollision(bullets[i].position, { 10, 20 }, enemies[j].position, { 80, 80 })) {
@@ -339,6 +377,10 @@ int main() {
 
                     if (enemies[j].health <= 0) {
                         score += enemies[j].score * scoreMultiplier;
+                        int levelIndex = enemies[j].level - 1;
+                        explosions.push_back({ enemies[j].position, 0, 0, explosionTextures[levelIndex] });
+
+
 
                         int rando = rand() % 100;
 
@@ -525,6 +567,24 @@ int main() {
             }
         }
 
+        for (const auto& explosion : explosions) {
+            Rectangle sourceRec = {
+                (float)(explosion.frame * EXPLOSION_FRAME_WIDTH),
+                0,
+                (float)EXPLOSION_FRAME_WIDTH,
+                (float)EXPLOSION_FRAME_HEIGHT
+            };
+
+            Rectangle destRec = {
+                explosion.position.x,
+                explosion.position.y,
+                EXPLOSION_FRAME_WIDTH*2,
+                EXPLOSION_FRAME_HEIGHT*2
+            };
+
+            DrawTexturePro(explosion.texture, sourceRec, destRec, { 0, 0 }, 0.0f, WHITE);
+        }
+
         DrawRectangle(10, 40, 150, 20, DARKGRAY);
         DrawRectangle(10, 40, static_cast<int>(150 * ultiCharge), 20, GOLD);
         DrawText("ULTI", 170, 40, 20, WHITE);
@@ -553,7 +613,9 @@ int main() {
     for (int i = 0; i < 4; i++) {
         UnloadTexture(engineTextures[i]);
     }
-
+    for (int i = 0; i < 4; i++) {
+        UnloadTexture(explosionTextures[i]);
+    }
     UnloadSound(shootSound);
     CloseAudioDevice();
 
