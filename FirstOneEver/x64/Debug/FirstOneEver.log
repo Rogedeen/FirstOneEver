@@ -1,1 +1,12 @@
-﻿  FirstOneEver.vcxproj -> C:\Users\Utku\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
+﻿  FirstOneEver.cpp
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(66,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(215,32): warning C4305: '*=': truncation from 'double' to 'float'
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(351,26): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(394,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(406,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(407,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(421,51): warning C4244: '+=': conversion from 'float' to 'unsigned long', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(456,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(510,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(522,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  FirstOneEver.vcxproj -> C:\Users\iyunu\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe

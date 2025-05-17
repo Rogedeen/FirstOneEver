@@ -102,8 +102,12 @@ int main() {
     Texture2D playerTextureDamaged = LoadTexture("assets/images/mainshipdamaged.png");
     Texture2D playerTextureCritical = LoadTexture("assets/images/mainshipheavlydamaged.png");
 
-
-
+    Texture2D powerUpTextures[5];
+    powerUpTextures[0] = LoadTexture("assets/images/fastshooting.png");
+    powerUpTextures[1] = LoadTexture("assets/images/movementboost.png");
+    powerUpTextures[2] = LoadTexture("assets/images/time.png");
+    powerUpTextures[3] = LoadTexture("assets/images/health.png");
+    powerUpTextures[4] = LoadTexture("assets/images/clone.png");
 
 
     Vector2 playerPosition = { screenWidth / 2 - 25, screenHeight - 100 };
@@ -656,7 +660,9 @@ int main() {
                 else if (powerUp.type == 2) powerColor = BROWN;
                 else if (powerUp.type == 3) powerColor = GREEN;
                 else if (powerUp.type == 4) powerColor = WHITE;
-            DrawRectangleV(powerUp.position, { 30, 30 }, powerColor);
+                if (powerUp.type >= 0 && powerUp.type <= 4) {
+                    DrawTextureEx(powerUpTextures[powerUp.type], powerUp.position, 0.0f, 2.0f, WHITE);
+                }
         }
 
         DrawText(TextFormat("HP: %d", playerHealth), 10, 10, 20, WHITE);
@@ -682,6 +688,10 @@ int main() {
     UnloadTexture(playerTextureFull);
     UnloadTexture(playerTextureDamaged);
     UnloadTexture(playerTextureCritical);
+    for (int i = 0; i < 5; i++) {
+        UnloadTexture(powerUpTextures[i]);
+    }
+
 
     CloseWindow();
     return 0;
