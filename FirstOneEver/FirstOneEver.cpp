@@ -196,7 +196,7 @@ int main() {
         }
 
         if (enemySpeedIncreaseTime >= 10.0f) {
-            enemySpeed += 0.1f;
+            enemySpeed += 0.15f;
             enemySpeedIncreaseTime = 0.0f;
         }
 
