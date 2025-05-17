@@ -53,6 +53,7 @@ int main() {
     const int screenHeight = 800;
 
     InitWindow(screenWidth, screenHeight, "prototip");
+    InitAudioDevice();
     SetTargetFPS(60);
     srand(time(NULL));
 
@@ -105,6 +106,8 @@ int main() {
 
     bool paused = false;
 
+    Sound shootSound = LoadSound("assets/sounds/normal_mermi_sesi.wav");
+   
     while (!WindowShouldClose()) {
         frameCounter++;
         float deltaTime = GetFrameTime();
@@ -157,6 +160,8 @@ int main() {
         }
 
         if (gameOver) {
+            StopSound(shootSound);
+         
             BeginDrawing();
             ClearBackground(BLACK);
             DrawText("GAME OVER", screenWidth / 2 - MeasureText("GAME OVER", 40) / 2, screenHeight / 2 - 100, 40, RED);
@@ -228,7 +233,10 @@ int main() {
                 bullets.push_back({ {clonePosition.x + 20, clonePosition.y}, bulletSpeed });
             }
 
+            PlaySound(shootSound);
         }
+
+
 
         for (auto& bullet : bullets) {
             bullet.position.y -= bullet.speed;
@@ -447,6 +455,9 @@ int main() {
     UnloadTexture(enemyTexture2);
     UnloadTexture(enemyTexture3);
     UnloadTexture(enemyTexture4);
+    UnloadSound(shootSound);
+    CloseAudioDevice();
+
 
     CloseWindow();
     return 0;
