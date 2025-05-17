@@ -562,10 +562,6 @@ int main() {
         }
 
         for (const auto& bullet : bullets) {
-            DrawRectangleV(bullet.position, { 10, 20 }, WHITE);
-        }
-
-        for (const auto& bullet : bullets) {
             DrawRectangleV(bullet.position, { 10, 20 }, YELLOW);
         }
 
