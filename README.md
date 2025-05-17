@@ -10,7 +10,7 @@ Galaksiyi istilacı uzaylı gemilerinden korumak üzere sonu olmayan bir yola ç
 - Yok olduklarında ihtimallere bağlı olarak bir takım güçlendirmeler düşürürler ve bu güçlendirmeleri oyuncu toplarsa, oyuncunun uzay gemisini bir süreliğine güçlendirir.
 - Oyuncu olabildiğince uzun süre hayatta kalmaya çalışıp zamanla artan skor çarpanı ile beraber yüksek bir skora ulaşmayı hedefler.
 
-![image alt](https://github.com/Rogedeen/FirstOneEver/blob/b826061c7de352960250e575fc91ef6680731ac0/normal%20oyun%20i%C3%A7i%20ss.png) &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; ![iamge alt](https://github.com/Rogedeen/FirstOneEver/blob/65f54877d51bffcccff1b9cdb4d69c8de241dd5d/klon%20ve%20ulti%20%2B%20power%20up%20d%C3%BC%C5%9Fme.png)
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;![image alt](https://github.com/Rogedeen/FirstOneEver/blob/b826061c7de352960250e575fc91ef6680731ac0/normal%20oyun%20i%C3%A7i%20ss.png) &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;![iamge alt](https://github.com/Rogedeen/FirstOneEver/blob/65f54877d51bffcccff1b9cdb4d69c8de241dd5d/klon%20ve%20ulti%20%2B%20power%20up%20d%C3%BC%C5%9Fme.png)
 
 ## Mekanikler
 
