@@ -111,6 +111,10 @@ int main() {
     powerUpTextures[3] = LoadTexture("assets/images/health.png");
     powerUpTextures[4] = LoadTexture("assets/images/clone.png");
 
+    Texture2D bulletTexture = LoadTexture("assets/images/mainbullet.png");
+    Texture2D ultiBulletTexture = LoadTexture("assets/images/ultibullet.png");
+
+
 
     Vector2 playerPosition = { screenWidth / 2 - 25, screenHeight - 100 };
     Vector2 clonePosition;
@@ -571,8 +575,10 @@ int main() {
         }
 
         for (const auto& bullet : bullets) {
-            DrawRectangleV(bullet.position, { 10, 20 }, YELLOW);
+            Texture2D currentBulletTexture = ultiActive ? ultiBulletTexture : bulletTexture;
+            DrawTextureEx(currentBulletTexture, bullet.position, 0.0f, 1.8f, WHITE);
         }
+
 
         for (const auto& enemy : enemies) {
             DrawTextureEx(enemy.texture, enemy.position, 0.0f, 2.0f, WHITE);
@@ -671,7 +677,7 @@ int main() {
         }
 
         DrawText(TextFormat("HP: %d", playerHealth), 10, 10, 20, WHITE);
-        DrawText(TextFormat("Score: %d", score), screenWidth - 175, 10, 20, WHITE);
+        DrawText(TextFormat("Score: %d", score), screenWidth - 150, 10, 20, WHITE);
 
         EndDrawing();
     }
@@ -697,6 +703,8 @@ int main() {
         UnloadTexture(powerUpTextures[i]);
     }
     UnloadTexture(backgroundTexture);
+    UnloadTexture(bulletTexture);
+
 
 
 
