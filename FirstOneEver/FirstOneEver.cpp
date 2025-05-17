@@ -223,25 +223,41 @@ int main() {
         if (paused) {
             BeginDrawing();
             ClearBackground(DARKGRAY);
-            DrawText("PAUSED", screenWidth / 2 - MeasureText("PAUSED", 40) / 2, screenHeight / 2 - 100, 40, WHITE);
+            DrawText("PAUSED", screenWidth / 2 - MeasureText("PAUSED", 40) / 2, screenHeight / 2 - 140, 40, WHITE);
 
-            DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 - 30, 120, 40, DARKBLUE);
-            DrawText("RESTART", screenWidth / 2 - MeasureText("RESTART", 20) / 2, screenHeight / 2 - 20, 20, WHITE);
+            // CONTINUE button
+            DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 - 70, 120, 40, GREEN);
+            DrawText("CONTINUE", screenWidth / 2 - MeasureText("CONTINUE", 20) / 2, screenHeight / 2 - 60, 20, WHITE);
 
-            DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 + 30, 120, 40, RED);
-            DrawText("EXIT", screenWidth / 2 - MeasureText("EXIT", 20) / 2, screenHeight / 2 + 40, 20, WHITE);
+            // RESTART button
+            DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 - 10, 120, 40, DARKBLUE);
+            DrawText("RESTART", screenWidth / 2 - MeasureText("RESTART", 20) / 2, screenHeight / 2, 20, WHITE);
+
+            // EXIT button
+            DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 + 50, 120, 40, RED);
+            DrawText("EXIT", screenWidth / 2 - MeasureText("EXIT", 20) / 2, screenHeight / 2 + 60, 20, WHITE);
 
             if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
                 Vector2 mousePos = GetMousePosition();
 
+                
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
-                    mousePos.y > screenHeight / 2 - 30 && mousePos.y < screenHeight / 2 + 10) {
-                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver, enemySpeed, enemySpeedReduced, enemySpeedTimer, score, playerSpeed, scoreMultiplier, gameTime, ultiCharge);
+                    mousePos.y > screenHeight / 2 - 70 && mousePos.y < screenHeight / 2 - 30) {
                     paused = false;
                 }
 
+                
                 if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
-                    mousePos.y > screenHeight / 2 + 30 && mousePos.y < screenHeight / 2 + 70) {
+                    mousePos.y > screenHeight / 2 - 10 && mousePos.y < screenHeight / 2 + 30) {
+                    ResetGame(playerPosition, bullets, enemies, powerUps, playerHealth, gameOver,
+                        enemySpeed, enemySpeedReduced, enemySpeedTimer, score, playerSpeed,
+                        scoreMultiplier, gameTime, ultiCharge);
+                    paused = false;
+                }
+
+               
+                if (mousePos.x > screenWidth / 2 - 60 && mousePos.x < screenWidth / 2 + 60 &&
+                    mousePos.y > screenHeight / 2 + 50 && mousePos.y < screenHeight / 2 + 90) {
                     CloseWindow();
                     return 0;
                 }
@@ -250,6 +266,7 @@ int main() {
             EndDrawing();
             continue;
         }
+
 
         if (gameOver) {
 
