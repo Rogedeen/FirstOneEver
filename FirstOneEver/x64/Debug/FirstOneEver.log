@@ -1,13 +1,13 @@
 ﻿  FirstOneEver.cpp
 C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(58,15): warning C4244: 'bağımsız değişken': 'time_t' - 'unsigned int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(130,32): warning C4305: '*=': 'double' iken 'float' olarak kesildi
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(250,26): warning C4244: 'başlatılıyor': 'int' - 'float' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(292,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(293,24): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(305,51): warning C4244: '+=': 'float' - 'unsigned long' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(336,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(385,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(397,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(134,32): warning C4305: '*=': 'double' iken 'float' olarak kesildi
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(264,26): warning C4244: 'başlatılıyor': 'int' - 'float' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(306,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(307,24): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(319,51): warning C4244: '+=': 'float' - 'unsigned long' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(350,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(400,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
+C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(412,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
   FirstOneEver.vcxproj -> C:\Users\Utku\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

@@ -107,6 +107,11 @@ int main() {
     bool paused = false;
 
     Sound shootSound = LoadSound("assets/sounds/normal_mermi_sesi.wav");
+    Sound gamerOverSound = LoadSound("assets/sounds/gameover.wav");
+    Sound cloneSound = LoadSound("assets/sounds/klon.wav");
+
+    bool lastFrameGameOver = false;  
+
    
     while (!WindowShouldClose()) {
         frameCounter++;
@@ -160,7 +165,14 @@ int main() {
         }
 
         if (gameOver) {
+
             StopSound(shootSound);
+
+            if (!lastFrameGameOver) {  
+                PlaySound(gamerOverSound);
+            }
+
+            lastFrameGameOver = true;
          
             BeginDrawing();
             ClearBackground(BLACK);
@@ -189,6 +201,9 @@ int main() {
 
             EndDrawing();
             continue;
+        }
+        else {
+            lastFrameGameOver = false; 
         }
 
         if (IsKeyDown(KEY_LEFT) && playerPosition.x > 0) playerPosition.x -= playerSpeed;
@@ -355,6 +370,7 @@ int main() {
                     playerHealth++;
                 }
                 if (powerUps[i].type == 4) {
+                    PlaySound(cloneSound);
                     cloneActive = true;
                     clonePosition = playerPosition;
                     cloneDuration = 0;
