@@ -60,7 +60,7 @@ int main() {
     const int screenWidth = 450;
     const int screenHeight = 800;
 
-    InitWindow(screenWidth, screenHeight, "prototip");
+    InitWindow(screenWidth, screenHeight, "The Space Protector");
     InitAudioDevice();
     SetTargetFPS(60);
     srand(time(NULL));

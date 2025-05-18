@@ -1,14 +1,12 @@
 ﻿  FirstOneEver.cpp
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(66,15): warning C4244: 'bağımsız değişken': 'time_t' - 'unsigned int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(221,32): warning C4305: '*=': 'double' iken 'float' olarak kesildi
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(374,26): warning C4244: 'başlatılıyor': 'int' - 'float' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(417,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(429,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(430,24): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(444,51): warning C4244: '+=': 'float' - 'unsigned long' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(479,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(533,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-C:\Users\Utku\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(545,20): warning C4267: 'başlatılıyor': 'size_t' - 'int' dönüşümü; veri kaybı olabilir
-  FirstOneEver.vcxproj -> C:\Users\Utku\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(66,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(221,32): warning C4305: '*=': truncation from 'double' to 'float'
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(371,26): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(414,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(426,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(427,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(441,51): warning C4244: '+=': conversion from 'float' to 'unsigned long', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(476,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(530,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\iyunu\source\repos\FirstOneEver\FirstOneEver\FirstOneEver.cpp(542,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  FirstOneEver.vcxproj -> C:\Users\iyunu\Source\Repos\FirstOneEver\x64\Debug\FirstOneEver.exe
