@@ -225,15 +225,12 @@ int main() {
             ClearBackground(DARKGRAY);
             DrawText("PAUSED", screenWidth / 2 - MeasureText("PAUSED", 40) / 2, screenHeight / 2 - 140, 40, WHITE);
 
-            // CONTINUE button
             DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 - 70, 120, 40, GREEN);
             DrawText("CONTINUE", screenWidth / 2 - MeasureText("CONTINUE", 20) / 2, screenHeight / 2 - 60, 20, WHITE);
 
-            // RESTART button
             DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 - 10, 120, 40, DARKBLUE);
             DrawText("RESTART", screenWidth / 2 - MeasureText("RESTART", 20) / 2, screenHeight / 2, 20, WHITE);
 
-            // EXIT button
             DrawRectangle(screenWidth / 2 - 60, screenHeight / 2 + 50, 120, 40, RED);
             DrawText("EXIT", screenWidth / 2 - MeasureText("EXIT", 20) / 2, screenHeight / 2 + 60, 20, WHITE);
 
