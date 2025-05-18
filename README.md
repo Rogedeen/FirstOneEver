@@ -1,3 +1,6 @@
+#Yunus Ahmet Işıkgöz 22253040
+#Utku Onur Erten 23253808
+
 # The Space Protector
 
 Galaksiyi istilacı uzaylı gemilerinden korumak üzere sonu olmayan bir yola çıkan uzay gemisini yönettiğiniz bir oyun. C++ ve Raylib kütüphanesi kullanılarak Visual Studio 2022 üzerinde geliştirildi.
