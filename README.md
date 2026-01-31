@@ -1,5 +1,5 @@
-#Yunus Ahmet Işıkgöz 22253040
-#Utku Onur Erten 23253808
+Yunus Ahmet Işıkgöz 22253040 & 
+Utku Onur Erten 23253808
 
 # The Space Protector
 
